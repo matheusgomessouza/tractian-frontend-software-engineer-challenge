@@ -5,7 +5,7 @@ import buttonLogo from "../../public/assets/gold.svg";
 import thunderboltLogo from "../../public/assets/gold.svg";
 import exclamationLogo from "../../public/assets/gold.svg";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <header className="w-full bg-blue-950 h-12 flex items-center justify-between px-4">

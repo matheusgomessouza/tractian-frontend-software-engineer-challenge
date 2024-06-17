@@ -4,8 +4,7 @@ export async function GET() {
       method: "GET",
     });
 
-    const companiesPayload = await companies.json();
-    return companiesPayload;
+    return companies;
   } catch (error) {
     console.error("Unable to retrieve companies data api/companies/", error);
   }
