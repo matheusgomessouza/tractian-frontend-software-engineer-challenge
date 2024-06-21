@@ -40,12 +40,8 @@ export default async function Home() {
   }
 
   const companiesData = await getCompaniesData();
-  const companyLocationsData = await getCompanyLocationsData('662fd0ee639069143a8fc387');
-  const companyAssetsData = await getCompanyAssetsData('662fd0ee639069143a8fc387');
   
   console.log(companiesData);
-  // console.log(companyLocationsData);
-  // console.log(companyAssetsData);
 
   return (
     <>
