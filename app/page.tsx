@@ -1,11 +1,52 @@
 import Image from "next/image";
 
-import tractianLogo from "../../public/assets/tractian-logo.svg";
-import buttonLogo from "../../public/assets/gold.svg";
-import thunderboltLogo from "../../public/assets/thunderbolt.svg";
-import exclamationLogo from "../../public/assets/exclamation-circle.svg";
+import tractianLogo from "../public/assets/tractian-logo.svg";
+import buttonLogo from "../public/assets/gold.svg";
+import thunderboltLogo from "../public/assets/thunderbolt.svg";
+import exclamationLogo from "../public/assets/exclamation-circle.svg";
+import locationLogo from "../public/assets/location.svg";
 
-export default function Home() {
+export default async function Home() {
+  async function getCompaniesData() {
+    const companies = await fetch("https://fake-api.tractian.com/companies");
+
+    if (!companies.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return companies.json();
+  }
+
+  async function getCompanyLocationsData(companyId: string) {
+    const companyLocations = await fetch(
+      `https://fake-api.tractian.com/companies/${companyId}/locations`
+    );
+
+    if (!companyLocations.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return companyLocations.json();
+  }
+
+  async function getCompanyAssetsData(companyId: string) {
+    const companyAssets = await fetch(`https://fake-api.tractian.com/companies/${companyId}/assets`);
+
+    if (!companyAssets.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return companyAssets.json();
+  }
+
+  const companiesData = await getCompaniesData();
+  const companyLocationsData = await getCompanyLocationsData('662fd0ee639069143a8fc387');
+  const companyAssetsData = await getCompanyAssetsData('662fd0ee639069143a8fc387');
+  
+  console.log(companiesData);
+  // console.log(companyLocationsData);
+  // console.log(companyAssetsData);
+
   return (
     <>
       <header className="w-full bg-blue-950 h-12 flex items-center justify-between px-4">
@@ -56,6 +97,14 @@ export default function Home() {
                 placeholder="Buscar Ativo ou Local"
                 className="w-full h-11 border-b border-gray-200 p-3"
               />
+              <details className="text-gray-900 mt-3 px-4">
+                <summary>
+                  <div className="flex gap-1 justify-start items-center ">
+                    <Image src={locationLogo} alt="marker symbol" />
+                    <p>PRODUCTION AREA - RAW MATERIAL</p>
+                  </div>
+                </summary>
+              </details>
             </article>
             <aside className="border border-gray-200 rounded-sm w-3/5">
               <header className="border-b border-gray-200 h-14 flex items-center px-4">
