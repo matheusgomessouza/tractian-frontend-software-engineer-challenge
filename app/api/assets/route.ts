@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function GET(companyId: string) {
+export async function GET(request: NextResponse) {
+  const { searchParams } = new URL(request.url)
+  const companyId = searchParams.get('id')
+
   try {
     const companies = await fetch(
       `https://fake-api.tractian.com/companies/${companyId}/assets`,
